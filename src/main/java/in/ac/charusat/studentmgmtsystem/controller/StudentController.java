@@ -1,19 +1,15 @@
 package in.ac.charusat.studentmgmtsystem.controller;
 import in.ac.charusat.studentmgmtsystem.model.Student;
 import in.ac.charusat.studentmgmtsystem.repository.StudentRepository;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-
 @RestController
-@CrossOrigin(origins= {"https://app-dummy123.herokuapp.com", "http://localhost:3000"})
 @CrossOrigin(origins="http://localhost:3000")
 public class StudentController {
-
     @Autowired
     StudentRepository studentRepository;
 //    List<Student> students = new ArrayList<>(
@@ -23,11 +19,6 @@ public class StudentController {
 //                    new Student(3, "Nick", "UK")
 //            )
 //    );
-
-        @GetMapping("/listStudents")
-        public List<Student> getAllStudents() {
-            return studentRepository.findAll();
-        }// Select * from student;
 
     // Mappings - URL endpoints
     // Get the list of all student
@@ -43,27 +34,20 @@ public class StudentController {
     @GetMapping("/student/{id}")
     public Student getStudent(@PathVariable Integer id) {
         return studentRepository.findById(id).get();
-    }
     } // Select * from student where id=?
     // Delete the student
-    @DeleteMapping("/student/{id}")
-    //@DeleteMapping("/student/{id}") // delete from student where id=?
     @DeleteMapping("/student/{id}") // delete from student where id=?
     public List<Student> deleteStudent(@PathVariable Integer id) {
         studentRepository.delete(studentRepository.findById(id).get());
         return studentRepository.findAll();
     }
-
     // Add new student
-    @PostMapping({"/student", "/student"}) // insert into student values(?, ?, ?)
     @PostMapping("/student") // insert into student values(?, ?, ?)
     public List<Student> addStudent(@RequestBody Student student) {
         studentRepository.save(student);
         return studentRepository.findAll();
     }
-
     // Update the student information
-    @PutMapping({"/student/{id}", "/student/{id}"}) // update table student set name=? where id=?
     @PutMapping("/student/{id}") // update table student set name=? where id=?
     public List<Student> updateStudent(@RequestBody Student student, @PathVariable Integer id) {
         Student studentObj = studentRepository.findById(id).get();

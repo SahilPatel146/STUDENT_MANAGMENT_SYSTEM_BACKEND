@@ -7,6 +7,7 @@ import javax.persistence.Id;
 
 @Entity
 public class Student {
+
     @Id
     private Integer id;
     private String name;
@@ -14,8 +15,11 @@ public class Student {
     public Student(Integer id, String name, String address) {
         this.address = address;
     }
+
     public Student() {
+
     }
+
     public Integer getId() {
         return id;
     }
